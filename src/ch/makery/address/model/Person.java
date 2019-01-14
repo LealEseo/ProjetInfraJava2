@@ -19,8 +19,8 @@ import javafx.beans.property.StringProperty;
  */
 public class Person {
 
-	private final StringProperty firstName;
-	private final StringProperty lastName;
+	private final StringProperty nom;
+	private final StringProperty prenom;
 	private final StringProperty mail;
 	private final StringProperty mobile;
 	private final IntegerProperty idClient;
@@ -29,9 +29,12 @@ public class Person {
 	/**
 	 * Default constructor.
 	 */
-	@SuppressWarnings("null")
 	public Person() {
 		this(null, null, null, null, (Integer) null);
+	}
+	
+	public Person(String nom, String prenom) {
+		this(nom, prenom, null, null, (Integer) null);
 	}
 
 
@@ -39,41 +42,41 @@ public class Person {
 	/**
 	 * Constructor with some initial data.
 	 * 
-	 * @param firstName
-	 * @param lastName
+	 * @param nom
+	 * @param prenom
 	 */
-	public Person(String firstName, String lastName, String mail, String mobile, int idClient) {
-		this.firstName = new SimpleStringProperty(firstName);
-		this.lastName = new SimpleStringProperty(lastName);
+	public Person(String nom, String prenom, String mail, String mobile, int idClient) {
+		this.nom = new SimpleStringProperty(nom);
+		this.prenom = new SimpleStringProperty(prenom);
 		this.mail = new SimpleStringProperty(mail);
 		this.mobile = new SimpleStringProperty(mobile);
 		this.idClient = new SimpleIntegerProperty(idClient);
 	}
 
-	public String getFirstName() {
-		return firstName.get();
+	public String getNom() {
+		return nom.get();
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName.set(firstName);
+	public void setNom(String nom) {
+		this.nom.set(nom);
 	}
 
-	public StringProperty firstNameProperty() {
-		return firstName;
+	public StringProperty nomProperty() {
+		return nom;
 	}
 
 	///////////////////////////////
 
-	public String getLastName() {
-		return lastName.get();
+	public String getPrenom() {
+		return prenom.get();
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName.set(lastName);
+	public void setPrenom(String prenom) {
+		this.prenom.set(prenom);
 	}
 
-	public StringProperty lastNameProperty() {
-		return lastName;
+	public StringProperty prenomProperty() {
+		return prenom;
 	}
 
 	////////////////////////////////

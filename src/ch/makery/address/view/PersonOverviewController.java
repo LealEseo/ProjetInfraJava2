@@ -47,9 +47,9 @@ public class PersonOverviewController {
     private void initialize() {
         // Initialize the person table with the two columns.
         firstNameColumn.setCellValueFactory(
-                cellData -> cellData.getValue().firstNameProperty());
+                cellData -> cellData.getValue().nomProperty());
         lastNameColumn.setCellValueFactory(
-                cellData -> cellData.getValue().lastNameProperty());
+                cellData -> cellData.getValue().prenomProperty());
 
         // Clear person details.
         showPersonDetails(null);
@@ -82,8 +82,8 @@ public class PersonOverviewController {
     private void showPersonDetails(Person person) {
         if (person != null) {
             // Fill the labels with info from the person object.
-            nomLabel.setText(person.getFirstName());
-            prenomLabel.setText(person.getLastName());
+            nomLabel.setText(person.getNom());
+            prenomLabel.setText(person.getPrenom());
             mailLabel.setText(person.getMail());
             mobileLabel.setText(person.getMobile());
             idClientLabel.setText(Integer.toString(person.getIdClient()));

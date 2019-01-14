@@ -29,13 +29,8 @@ public class Person {
 	/**
 	 * Default constructor.
 	 */
-	public Person() {
-		this(null, null, null, null, (Integer) null);
-	}
 	
-	public Person(String nom, String prenom) {
-		this(nom, prenom, null, null, (Integer) null);
-	}
+	
 
 
 		
@@ -52,7 +47,19 @@ public class Person {
 		this.mobile = new SimpleStringProperty(mobile);
 		this.idClient = new SimpleIntegerProperty(idClient);
 	}
+	public Person() {
+		this(null, null, null, null, 00);
+	}
+	
+	public Person(String nom, String prenom) {
+		this(nom, prenom, null, null, 00);
+	}
+	
+	 
 
+	
+	
+	
 	public String getNom() {
 		return nom.get();
 	}

@@ -8,11 +8,7 @@ import javafx.stage.Stage;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
-/**
- * Dialog to edit details of a person.
- * 
- * @author Marco Jakob
- */
+
 public class PersonEditDialogController {
 
     @FXML
@@ -56,7 +52,6 @@ public class PersonEditDialogController {
      */
     public void setPerson(Person person) {
         this.person = person;
-
         nomField.setText(person.getNom());
         prenomField.setText(person.getPrenom());
         mailField.setText(person.getMail());
@@ -107,31 +102,29 @@ public class PersonEditDialogController {
         String errorMessage = "";
 
         if (nomField.getText() == null || nomField.getText().length() == 0) {
-            errorMessage += "No valid first name!\n"; 
+            errorMessage += "Nom invalide !\n"; 
         }
         if (prenomField.getText() == null || prenomField.getText().length() == 0) {
-            errorMessage += "No valid last name!\n"; 
+            errorMessage += "Prenom invalide!\n"; 
         }
         if (mailField.getText() == null || mailField.getText().length() == 0) {
-            errorMessage += "No valid street!\n"; 
+            errorMessage += "Mail invalide!\n"; 
         }
 
         if (idClientField.getText() == null || idClientField.getText().length() == 0) {
-            errorMessage += "No valid postal code!\n"; 
+            errorMessage += "Identifiant client invalide!\n"; 
         } else {
             // try to parse the postal code into an int.
             try {
                 Integer.parseInt(idClientField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid postal code (must be an integer)!\n"; 
+                errorMessage += "Idenfiant invalide (entrez un nombre)!\n"; 
             }
         }
 
         if (mobileField.getText() == null || mobileField.getText().length() == 0) {
-            errorMessage += "No valid city!\n"; 
+            errorMessage += "Numéro de télephone invalide!\n"; 
         }
-
-        
 
         if (errorMessage.length() == 0) {
             return true;

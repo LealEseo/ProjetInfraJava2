@@ -95,7 +95,7 @@ public class PersonOverviewController {
             nomLabel.setText("");
             prenomLabel.setText("");
             mailLabel.setText("");
-            mobileLabel.setText("-");
+            mobileLabel.setText("");
             idClientLabel.setText("");
             
         }

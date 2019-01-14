@@ -37,7 +37,7 @@ public class MainApp extends Application {
     
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Gérer les réservations");
+        this.primaryStage.setTitle("Gï¿½rer les rï¿½servations");
 
         // Set the application icon.
         this.primaryStage.getIcons().add(new Image("file:ressources/images/if_contacts_309089.png"));
@@ -262,28 +262,6 @@ public class MainApp extends Application {
     }
     
     
-    
-    /**
-     * Opens a dialog to show birthday statistics.
-     */
-    public void showBirthdayStatistics() {
-        try {
-            // Load the fxml file and create a new stage for the popup.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/BirthdayStatistics.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Birthday Statistics");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-            dialogStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
+ 
     
 }

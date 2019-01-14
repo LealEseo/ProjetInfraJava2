@@ -278,11 +278,6 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-
-            // Set the persons into the controller.
-            BirthdayStatisticsController controller = loader.getController();
-            controller.setPersonData(personData);
-
             dialogStage.show();
 
         } catch (IOException e) {

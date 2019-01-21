@@ -175,7 +175,7 @@ public class MainApp extends Application {
 
 	/**
 	 * Sets the file path of the currently loaded file. The path is persisted in the
-	 * OS specific registry.
+	 * OS specific registry
 	 * 
 	 * @param file the file or null to remove the path
 	 */

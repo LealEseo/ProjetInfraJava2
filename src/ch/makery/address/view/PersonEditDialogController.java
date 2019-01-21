@@ -120,7 +120,7 @@ public class PersonEditDialogController {
         if (idClientField.getText() == null || idClientField.getText().length() == 0) {
             errorMessage += "Identifiant client invalide!\n"; 
         } else {
-            // try to parse the postal code into an int.
+            // try to parse the postal code into an int. 
             try {
                 Integer.parseInt(idClientField.getText());
             } catch (NumberFormatException e) {

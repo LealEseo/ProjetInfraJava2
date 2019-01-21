@@ -26,7 +26,7 @@ public class PersonOverviewController {
     @FXML
     private Label mailLabel;
     @FXML
-    private Label mobileLabel;
+    private Label mobileLabel; 
     @FXML
     private Label idClientLabel;
     @FXML

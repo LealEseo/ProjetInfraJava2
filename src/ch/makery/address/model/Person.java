@@ -147,7 +147,7 @@ public class Person {
 		return hotel;
 	}
 
-	////////////////////////////////
+	//////////////////////////////// 
 
 	public String getChambre() {
 		return chambre.get();

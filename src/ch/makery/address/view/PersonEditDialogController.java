@@ -21,7 +21,10 @@ public class PersonEditDialogController {
     private TextField mobileField;
     @FXML
     private TextField idClientField;
-    
+    @FXML
+    private TextField hotelField;
+    @FXML
+    private TextField chambreField;
 
 
     private Stage dialogStage;
@@ -57,7 +60,8 @@ public class PersonEditDialogController {
         mailField.setText(person.getMail());
         idClientField.setText(Integer.toString(person.getIdClient()));
         mobileField.setText(person.getMobile());
-        
+        hotelField.setText(person.getHotel());
+        chambreField.setText(person.getChambre());
     }
 
     /**
@@ -80,6 +84,8 @@ public class PersonEditDialogController {
             person.setMail(mailField.getText());
             person.setIdClient(Integer.parseInt(idClientField.getText()));
             person.setMobile(mobileField.getText());
+            person.setHotel(hotelField.getText());
+            person.setChambre(chambreField.getText());
             okClicked = true;
             dialogStage.close();
         }
@@ -124,6 +130,14 @@ public class PersonEditDialogController {
 
         if (mobileField.getText() == null || mobileField.getText().length() == 0) {
             errorMessage += "Numéro de télephone invalide!\n"; 
+        }
+        
+        if (hotelField.getText() == null || hotelField.getText().length() == 0) {
+            errorMessage += "Hotel invalide !\n"; 
+        }
+        
+        if (chambreField.getText() == null || chambreField.getText().length() == 0) {
+            errorMessage += "Chambre invalide !\n"; 
         }
 
         if (errorMessage.length() == 0) {

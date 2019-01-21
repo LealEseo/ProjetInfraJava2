@@ -76,10 +76,9 @@
                         <DatePicker fx:id="dateDebutLabel" promptText="Date de début" GridPane.columnIndex="1" />
                         <DatePicker fx:id="dateFinLabel" promptText="Date de fin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label prefHeight="21.0" prefWidth="52.0" text="Hôtel" GridPane.rowIndex="2" />
-                        <Label fx:id="idHotel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="hotelLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Chambre" GridPane.rowIndex="3" />
-                        <Label fx:id="idChambre" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="chambreLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <Separator layoutX="13.0" layoutY="53.0" prefHeight="12.0" prefWidth="531.0">

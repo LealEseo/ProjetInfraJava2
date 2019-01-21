@@ -28,10 +28,13 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private ObservableList<Person> personData = FXCollections.observableArrayList();
 
+    
+
+
 	public MainApp() {
 		// Add some sample data
-		personData.add(new Person("Hans", "Muster", "test@mail.com", "0643550024", 035));
-		personData.add(new Person("Ruth", "Mueller", "test22@mail.com", "0643850024", 036));
+		personData.add(new Person("Hans", "Muster", "test@mail.com", "0643550024", 035, "hotel1", "chambre1"));
+		personData.add(new Person("Ruth", "Mueller", "test22@mail.com", "0643850024", 036, "hotel2", "chambre2"));
 	}
 
 	public void start(Stage primaryStage) {
@@ -211,6 +214,7 @@ public class MainApp extends Application {
 			// Save the file path to the registry.
 			setPersonFilePath(file);
 
+
 		} catch (Exception e) { // catches ANY exception
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
@@ -249,5 +253,9 @@ public class MainApp extends Application {
 			alert.showAndWait();
 		}
 	}
-
+       
+    
+    
+ 
+   
 }

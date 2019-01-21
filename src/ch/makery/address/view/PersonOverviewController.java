@@ -3,6 +3,7 @@ package ch.makery.address.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,6 +29,14 @@ public class PersonOverviewController {
     private Label mobileLabel;
     @FXML
     private Label idClientLabel;
+    @FXML
+    private DatePicker dateDebut;
+    @FXML
+    private DatePicker dateFin;
+    @FXML
+    private Label hotelLabel;
+    @FXML
+    private Label chambreLabel;
 
     // Reference to the main application.
     private MainApp mainApp;
@@ -87,9 +96,10 @@ public class PersonOverviewController {
             mailLabel.setText(person.getMail());
             mobileLabel.setText(person.getMobile());
             idClientLabel.setText(Integer.toString(person.getIdClient()));
+            hotelLabel.setText(person.getHotel());
+            chambreLabel.setText(person.getChambre());
 
-            // TODO: We need a way to convert the birthday into a String! 
-            // birthdayLabel.setText(...);
+            
         } else {
             // Person is null, remove all the text.
             nomLabel.setText("");
@@ -97,6 +107,8 @@ public class PersonOverviewController {
             mailLabel.setText("");
             mobileLabel.setText("");
             idClientLabel.setText("");
+            hotelLabel.setText("");
+            chambreLabel.setText("");
             
         }
     }

@@ -13,8 +13,7 @@ public class DateUtil {
     private static final String DATE_PATTERN = "dd.MM.yyyy";
 
     /** The date formatter. */
-    private static final DateTimeFormatter DATE_FORMATTER = 
-            DateTimeFormatter.ofPattern(DATE_PATTERN);
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
     /**
      * Returns the given date as a well formatted String. The above defined 

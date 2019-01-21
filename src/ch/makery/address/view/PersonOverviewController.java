@@ -33,7 +33,6 @@ public class PersonOverviewController {
     private Label idClientLabel;
     @FXML
     private DatePicker dateDebutLabel;
-    
     @FXML
     private DatePicker dateFinLabel;
     @FXML
@@ -104,6 +103,7 @@ public class PersonOverviewController {
             hotelLabel.setText(person.getHotel());
             chambreLabel.setText(person.getChambre());
             dateDebutLabel.setValue(person.getDateDebut());
+            dateFinLabel.setValue(person.getDateFin());
             
 
             
@@ -117,6 +117,7 @@ public class PersonOverviewController {
             hotelLabel.setText("");
             chambreLabel.setText("");
             dateDebutLabel.setValue(null);
+            dateFinLabel.setValue(null);
             
         }
     }

@@ -28,6 +28,8 @@ public class PersonEditDialogController {
     private TextField chambreField;
     @FXML
     private DatePicker dateDebutField;
+    @FXML
+    private DatePicker dateFinField;
 
 
     private Stage dialogStage;
@@ -66,6 +68,7 @@ public class PersonEditDialogController {
         hotelField.setText(person.getHotel());
         chambreField.setText(person.getChambre());
         dateDebutField.setValue(person.getDateDebut());
+        dateFinField.setValue(person.getDateFin());
     }
 
     /**
@@ -91,6 +94,7 @@ public class PersonEditDialogController {
             person.setHotel(hotelField.getText());
             person.setChambre(chambreField.getText());
             person.setDateDebut(dateDebutField.getValue());
+            person.setDateFin(dateFinField.getValue());
             okClicked = true;
             dialogStage.close();
         }

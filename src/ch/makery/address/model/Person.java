@@ -1,6 +1,5 @@
 package ch.makery.address.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -8,12 +7,10 @@ import ch.makery.address.util.*;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.DatePicker;
 
 /**
  * Model class for a Person.
@@ -30,7 +27,7 @@ public class Person {
 	private final StringProperty hotel;
 	private final StringProperty chambre;
 	private final ObjectProperty<LocalDate> dateDebut;
-
+	private final ObjectProperty<LocalDate> dateFin;
 
 	/**
 	 * Default constructor.
@@ -50,11 +47,12 @@ public class Person {
 		this.idClient = new SimpleIntegerProperty(idClient);
 		this.hotel = new SimpleStringProperty(hotel);
 		this.chambre = new SimpleStringProperty(chambre);
-		this.dateDebut = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+		this.dateDebut = new SimpleObjectProperty<LocalDate>(null);
+		this.dateFin = new SimpleObjectProperty<LocalDate>(null); // LocalDate.of(1999, 2, 21)
 
 	}
-	
-	//Constructors
+
+	// Constructors
 
 	public Person() {
 		this(null, null, null, null, 00, null, null);
@@ -63,11 +61,9 @@ public class Person {
 	public Person(String nom, String prenom) {
 		this(nom, prenom, null, null, 00, null, null);
 	}
-	
-	
 
-	//Getters and Setters
-	
+	// Getters and Setters
+
 	public String getNom() {
 		return nom.get();
 	}
@@ -150,7 +146,7 @@ public class Person {
 		return hotel;
 	}
 
-	//////////////////////////////// 
+	////////////////////////////////
 
 	public String getChambre() {
 		return chambre.get();
@@ -163,9 +159,9 @@ public class Person {
 	public StringProperty chambreProperty() {
 		return chambre;
 	}
-	
-	//////////////////////////////// 
-	
+
+	////////////////////////////////
+
 	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getDateDebut() {
 		return dateDebut.get();
@@ -178,8 +174,20 @@ public class Person {
 	public ObjectProperty<LocalDate> dateDebutProperty() {
 		return dateDebut;
 	}
-	
-	
 
+	////////////////////////////////
+
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	public LocalDate getDateFin() {
+		return dateFin.get();
+	}
+
+	public void setDateFin(LocalDate dateFin) {
+		this.dateFin.set(dateFin);
+	}
+
+	public ObjectProperty<LocalDate> dateFinProperty() {
+		return dateFin;
+	}
 
 }

@@ -43,7 +43,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label styleClass="label-bright" text="Nom" />
+                        <Label styleClass="label-bright" text="Nojhm" />
                         <Label fx:id="nomLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" />
                         <Label styleClass="label-bright" text="Prénom" GridPane.rowIndex="1" />
                         <Label fx:id="prenomLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -73,8 +73,8 @@
                      <children>
                         <Label prefHeight="21.0" prefWidth="126.0" text="Date de Début" />
                         <Label prefHeight="21.0" prefWidth="90.0" text="Date de fin" GridPane.rowIndex="1" />
-                        <DatePicker fx:id="dateDebutLabel" promptText="Date de début" GridPane.columnIndex="1" />
-                        <DatePicker fx:id="dateFinLabel" promptText="Date de fin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="dateDebutLabel" editable="false" promptText="Date de début" GridPane.columnIndex="1" />
+                        <DatePicker fx:id="dateFinLabel" editable="false" promptText="Date de fin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label prefHeight="21.0" prefWidth="52.0" text="Hôtel" GridPane.rowIndex="2" />
                         <Label fx:id="hotelLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Chambre" GridPane.rowIndex="3" />

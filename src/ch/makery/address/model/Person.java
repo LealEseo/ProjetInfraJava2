@@ -1,5 +1,6 @@
 package ch.makery.address.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -28,6 +29,7 @@ public class Person {
 	private final IntegerProperty idClient;
 	private final StringProperty hotel;
 	private final StringProperty chambre;
+	private final ObjectProperty<LocalDate> dateDebut;
 
 
 	/**
@@ -48,6 +50,7 @@ public class Person {
 		this.idClient = new SimpleIntegerProperty(idClient);
 		this.hotel = new SimpleStringProperty(hotel);
 		this.chambre = new SimpleStringProperty(chambre);
+		this.dateDebut = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
 
 	}
 	
@@ -160,6 +163,22 @@ public class Person {
 	public StringProperty chambreProperty() {
 		return chambre;
 	}
+	
+	//////////////////////////////// 
+	
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	public LocalDate getDateDebut() {
+		return dateDebut.get();
+	}
+
+	public void setDateDebut(LocalDate dateDebut) {
+		this.dateDebut.set(dateDebut);
+	}
+
+	public ObjectProperty<LocalDate> dateDebutProperty() {
+		return dateDebut;
+	}
+	
 	
 
 

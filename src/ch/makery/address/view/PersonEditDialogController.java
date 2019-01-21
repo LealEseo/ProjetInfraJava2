@@ -3,6 +3,7 @@ package ch.makery.address.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ch.makery.address.model.Person;
@@ -25,6 +26,8 @@ public class PersonEditDialogController {
     private TextField hotelField;
     @FXML
     private TextField chambreField;
+    @FXML
+    private DatePicker dateDebutField;
 
 
     private Stage dialogStage;
@@ -62,6 +65,7 @@ public class PersonEditDialogController {
         mobileField.setText(person.getMobile());
         hotelField.setText(person.getHotel());
         chambreField.setText(person.getChambre());
+        dateDebutField.setValue(person.getDateDebut());
     }
 
     /**
@@ -86,6 +90,7 @@ public class PersonEditDialogController {
             person.setMobile(mobileField.getText());
             person.setHotel(hotelField.getText());
             person.setChambre(chambreField.getText());
+            person.setDateDebut(dateDebutField.getValue());
             okClicked = true;
             dialogStage.close();
         }

@@ -7,6 +7,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
+import java.time.LocalDate;
+
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.*;
@@ -18,7 +21,6 @@ public class PersonOverviewController {
     private TableColumn<Person, String> firstNameColumn;
     @FXML
     private TableColumn<Person, String> lastNameColumn;
-
     @FXML
     private Label nomLabel;
     @FXML
@@ -30,9 +32,10 @@ public class PersonOverviewController {
     @FXML
     private Label idClientLabel;
     @FXML
-    private DatePicker dateDebut;
+    private DatePicker dateDebutLabel;
+    
     @FXML
-    private DatePicker dateFin;
+    private DatePicker dateFinLabel;
     @FXML
     private Label hotelLabel;
     @FXML
@@ -82,6 +85,8 @@ public class PersonOverviewController {
     
     
     
+    
+    
     /**
      * Fills all text fields to show details about the person.
      * If the specified person is null, all text fields are cleared.
@@ -98,6 +103,8 @@ public class PersonOverviewController {
             idClientLabel.setText(Integer.toString(person.getIdClient()));
             hotelLabel.setText(person.getHotel());
             chambreLabel.setText(person.getChambre());
+            dateDebutLabel.setValue(person.getDateDebut());
+            
 
             
         } else {
@@ -109,6 +116,7 @@ public class PersonOverviewController {
             idClientLabel.setText("");
             hotelLabel.setText("");
             chambreLabel.setText("");
+            dateDebutLabel.setValue(null);
             
         }
     }

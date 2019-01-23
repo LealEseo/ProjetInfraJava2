@@ -1,5 +1,6 @@
 package ch.makery.address.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -39,7 +40,7 @@ public class Person {
 	 * @param nom
 	 * @param prenom
 	 */
-	public Person(String nom, String prenom, String mail, String mobile, int idClient, String hotel, String chambre) {
+	public Person(String nom, String prenom, String mail, String mobile, int idClient, String hotel, String chambre, Date dateDebut, Date dateFin) {
 		this.nom = new SimpleStringProperty(nom);
 		this.prenom = new SimpleStringProperty(prenom);
 		this.mail = new SimpleStringProperty(mail);
@@ -47,19 +48,19 @@ public class Person {
 		this.idClient = new SimpleIntegerProperty(idClient);
 		this.hotel = new SimpleStringProperty(hotel);
 		this.chambre = new SimpleStringProperty(chambre);
-		this.dateDebut = new SimpleObjectProperty<LocalDate>(null);
-		this.dateFin = new SimpleObjectProperty<LocalDate>(null); // LocalDate.of(1999, 2, 21)
+		this.dateDebut = new SimpleObjectProperty<LocalDate>(dateDebut.toLocalDate());
+		this.dateFin = new SimpleObjectProperty<LocalDate>(dateFin.toLocalDate()); // LocalDate.of(1999, 2, 21)
 
 	}
 
 	// Constructors
 
 	public Person() {
-		this(null, null, null, null, 00, null, null);
+		this(null, null, null, null, 00, null, null,null,null);
 	}
 
 	public Person(String nom, String prenom) {
-		this(nom, prenom, null, null, 00, null, null);
+		this(nom, prenom, null, null, 00, null, null,null,null);
 	}
 
 	// Getters and Setters

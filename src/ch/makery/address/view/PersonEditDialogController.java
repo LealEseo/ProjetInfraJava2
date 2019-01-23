@@ -6,6 +6,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
@@ -86,6 +93,21 @@ public class PersonEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
+        	try (
+    				Connection connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.142:5432/hothell", "postgres", "postgres")) {
+    	            System.out.println("Java JDBC PostgreSQL Example");
+    	            PreparedStatement stmt = connection.prepareStatement("UPDATE clients SET nom = '"+nomField.getText()+"', "
+    	            		+ "prenom = '"+prenomField.getText()+"', "
+    	            		+ "mail = '"+mailField.getText()+"', "
+    	    	            + "telephone = '"+mobileField.getText()+"' "
+    	            		+ "WHERE id = "+idClientField.getText());
+    	    		System.out.println(stmt);
+    	            stmt.executeUpdate();
+    			}
+    	        catch (SQLException e) {
+    	        	System.out.println(e.getMessage());
+    			    e.printStackTrace();
+    			}
             person.setNom(nomField.getText());
             person.setPrenom(prenomField.getText());
             person.setMail(mailField.getText());
@@ -138,7 +160,7 @@ public class PersonEditDialogController {
         }
 
         if (mobileField.getText() == null || mobileField.getText().length() == 0) {
-            errorMessage += "Numéro de télephone invalide!\n"; 
+            errorMessage += "Numï¿½ro de tï¿½lephone invalide!\n"; 
         }
         
         if (hotelField.getText() == null || hotelField.getText().length() == 0) {

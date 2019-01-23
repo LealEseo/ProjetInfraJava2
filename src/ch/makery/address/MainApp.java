@@ -2,6 +2,7 @@ package ch.makery.address;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.*;
 import java.util.prefs.Preferences;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -33,13 +34,28 @@ public class MainApp extends Application {
 
 	public MainApp() {
 		// Add some sample data
-		personData.add(new Person("Hans", "Muster", "test@mail.com", "0643550024", 035, "hotel1", "chambre1"));
-		personData.add(new Person("Ruth", "Mueller", "test22@mail.com", "0643850024", 036, "hotel2", "chambre2"));
+		try (
+				Connection connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.142:5432/hothell", "postgres", "postgres")) {
+	            System.out.println("Java JDBC PostgreSQL Example");
+	            PreparedStatement stmt = connection.prepareStatement("SELECT cl.nom, cl.prenom, cl.mail, cl.telephone, cl.id as clientId, h.nom as nomHotel, ch.numeroChambre, r.dateDebut, r.datefin FROM Reservations as r INNER JOIN Clients  AS cl ON cl.id = r.client INNER JOIN Chambres AS ch ON r.chambre = ch.numeroChambre INNER JOIN Hotels   AS h  ON r.hotel = h.id;");
+	            ResultSet Rs = stmt.executeQuery();
+	    		while(Rs.next()){
+	    			System.out.println(Rs.getString(1)+" "+Rs.getString(2)+" "+Rs.getString(3)+" "+Rs.getString(4)+" "+Rs.getInt(5)+" "+Rs.getString(6)+" "+Rs.getString(7)+" "+Rs.getString(8)+" "+Rs.getString(9));
+	    			personData.add(new Person(Rs.getString(1), Rs.getString(2), Rs.getString(3), Rs.getString(4), Rs.getInt(5), Rs.getString(6), Rs.getString(7), Rs.getDate(8), Rs.getDate(9)));
+	    		}
+			}
+	        catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+			    e.printStackTrace();
+			}
+		
+		
+		//personData.add(new Person("Ruthet", "Mueller", "test22@mail.com", "0643850024", 036, "hotel2", "chambre2"));
 	}
 
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Gérer les réservations");
+		this.primaryStage.setTitle("Gï¿½rer les rï¿½servations");
 
 		// Set the application icon.
 		this.primaryStage.getIcons().add(new Image("file:ressources/images/if_contacts_309089.png"));
@@ -135,7 +151,7 @@ public class MainApp extends Application {
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Éditer la réservation");
+			dialogStage.setTitle("ï¿½diter la rï¿½servation");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
@@ -185,12 +201,12 @@ public class MainApp extends Application {
 			prefs.put("filePath", file.getPath());
 
 			// Update the stage title.
-			primaryStage.setTitle("Réservations - " + file.getName());
+			primaryStage.setTitle("Rï¿½servations - " + file.getName());
 		} else {
 			prefs.remove("filePath");
 
 			// Update the stage title.
-			primaryStage.setTitle("Réservation");
+			primaryStage.setTitle("Rï¿½servation");
 		}
 	}
 

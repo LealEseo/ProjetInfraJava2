@@ -43,7 +43,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label styleClass="label-bright" text="Nojhm" />
+                        <Label styleClass="label-bright" text="Nom" />
                         <Label fx:id="nomLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" />
                         <Label styleClass="label-bright" text="Prénom" GridPane.rowIndex="1" />
                         <Label fx:id="prenomLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />

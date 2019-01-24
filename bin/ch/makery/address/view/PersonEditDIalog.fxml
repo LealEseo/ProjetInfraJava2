@@ -24,7 +24,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nnnom" />
+            <Label text="Nom" />
             <Label text="Prénom" GridPane.rowIndex="1" />
             <Label text="Mail" GridPane.rowIndex="2" />
             <Label text="Telephone mobile" GridPane.rowIndex="3" />

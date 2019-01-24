@@ -102,9 +102,9 @@ public class RootLayoutController {
     @FXML
     private void handleAbout() {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("AddressApp");
-        alert.setHeaderText("About");
-        alert.setContentText("Author: Marco Jakob\nWebsite: http://code.makery.ch"); 
+        alert.setTitle("EseOtel");
+        alert.setHeaderText("A propos");
+        alert.setContentText("Auteurs : GAUICHET AUBIN, HEUVELINE LEO\nGARREAU ARTHUR, GILET BENJAMIN\nGRANDGEORGE SIMON, IZYDORCZYCK ADRIEN"); 
 
         alert.showAndWait();
     }

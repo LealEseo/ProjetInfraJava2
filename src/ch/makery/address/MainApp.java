@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Gerer les reservations");
+		this.primaryStage.setTitle("EseOtêl");
 
 		// Set the application icon.
 		this.primaryStage.getIcons().add(new Image("file:ressources/images/logo.png"));

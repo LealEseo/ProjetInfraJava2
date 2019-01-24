@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
@@ -37,6 +38,8 @@ public class PersonEditDialogController {
     private DatePicker dateDebutField;
     @FXML
     private DatePicker dateFinField;
+    
+    LocalDate today = LocalDate.now();
 
 
     private Stage dialogStage;
@@ -173,9 +176,16 @@ public class PersonEditDialogController {
             errorMessage += "Chambre invalide !\n"; 
         }
         
-        if(dateDebutField.getValue().isAfter(dateFinField.getValue())) {
-        	errorMessage += "Date de fin antérieur à la date de debut !";
-        }
+        if(dateDebutField.getValue().isBefore(today) || dateFinField.getValue().isBefore(today)) {
+        	errorMessage += "Dates selectionnees antérieur à la date d'aujourd'hui !\n";
+        	
+        
+        }else if(dateDebutField.getValue().isAfter(dateFinField.getValue())) {
+        		errorMessage += "Date de fin antérieur à la date de debut !\n";
+        		System.out.println(today);
+        	}
+        
+        
         
         
 
@@ -185,7 +195,7 @@ public class PersonEditDialogController {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Champs invalide");
+            alert.setTitle("Champ(s) invalide(s)");
             alert.setHeaderText("Corrigez les champs invalides");
             alert.setContentText(errorMessage);
             alert.showAndWait();

@@ -16,8 +16,8 @@ import java.sql.SQLException;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
-
 public class PersonEditDialogController {
+	int idhotel;
 
     @FXML
     private TextField nomField;
@@ -108,6 +108,13 @@ public class PersonEditDialogController {
     	            		+ "WHERE client = "+idClientField.getText());
     	    		System.out.println(stmt);
     	            stmt.executeUpdate();
+    	            
+    	            stmt = connection.prepareStatement("UPDATE reservations SET hotel = "+idhotel+"', "
+    	            		+ "datefin = '"+dateFinField.getValue()+"' "
+    	            		+ "WHERE client = "+idClientField.getText());
+    	    		System.out.println(stmt);
+    	            stmt.executeUpdate();
+    	            
     			}
     	        catch (SQLException e) {
     	        	System.out.println(e.getMessage());
@@ -169,11 +176,41 @@ public class PersonEditDialogController {
         }
         
         if (hotelField.getText() == null || hotelField.getText().length() == 0) {
-            errorMessage += "Hotel invalide !\n"; 
+            if( hotelField.getText()=="Tothell"){
+            	idhotel = 1; 
+            }
+            else if (hotelField.getText() == "Hekel"){
+            	idhotel = 2;
+            }
+            else if (hotelField.getText() == "Otello"){
+            	idhotel = 3;
+            }    	            
+            else if (hotelField.getText() == "Hothell"){
+            	idhotel = 4;
+            }
+            else{
+            	errorMessage += "Hotel invalide !\n"; 
+            }
+            
         }
         
         if (chambreField.getText() == null || chambreField.getText().length() == 0) {
-            errorMessage += "Chambre invalide !\n"; 
+            errorMessage += "Chambre invalide !\n";
+            if( chambreField.getText()=="Tothell"){
+            	idhotel = 1; 
+            }
+            else if (chambreField.getText() == "Hekel"){
+            	idhotel = 2;
+            }
+            else if (chambreField.getText() == "Otello"){
+            	idhotel = 3;
+            }
+            else if (chambreField.getText() == "Hothell"){
+            	idhotel = 4;
+            }
+            else{
+            	errorMessage += "Hotel invalide !\n"; 
+            }
         }
 
         if (errorMessage.length() == 0) {

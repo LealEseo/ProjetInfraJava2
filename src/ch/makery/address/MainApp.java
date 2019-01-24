@@ -29,9 +29,9 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private ObservableList<Person> personData = FXCollections.observableArrayList();
 
-    
 
 
+	
 	public MainApp() {
 		// Add some sample data
 		try (
@@ -50,6 +50,7 @@ public class MainApp extends Application {
 			}
 		
 		
+		
 		//personData.add(new Person("Ruthet", "Mueller", "test22@mail.com", "0643850024", 036, "hotel2", "chambre2"));
 	}
 
@@ -58,7 +59,7 @@ public class MainApp extends Application {
 		this.primaryStage.setTitle("G�rer les r�servations");
 
 		// Set the application icon.
-		this.primaryStage.getIcons().add(new Image("file:ressources/images/if_contacts_309089.png"));
+		this.primaryStage.getIcons().add(new Image("file:ressources/images/logo.png"));
 
 		initRootLayout();
 

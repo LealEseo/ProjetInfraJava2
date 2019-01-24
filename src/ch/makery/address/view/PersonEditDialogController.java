@@ -103,6 +103,11 @@ public class PersonEditDialogController {
     	            		+ "WHERE id = "+idClientField.getText());
     	    		System.out.println(stmt);
     	            stmt.executeUpdate();
+    	            stmt = connection.prepareStatement("UPDATE reservations SET datedebut = '"+dateDebutField.getValue()+"', "
+    	            		+ "datefin = '"+dateFinField.getValue()+"' "
+    	            		+ "WHERE client = "+idClientField.getText());
+    	    		System.out.println(stmt);
+    	            stmt.executeUpdate();
     			}
     	        catch (SQLException e) {
     	        	System.out.println(e.getMessage());

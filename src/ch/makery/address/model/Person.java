@@ -13,11 +13,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/**
- * Model class for a Person.
- *
- * @author Marco Jakob
- */
+
 public class Person {
 
 	private final StringProperty nom;

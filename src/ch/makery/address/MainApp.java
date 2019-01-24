@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("G�rer les r�servations");
+		this.primaryStage.setTitle("Gerer les reservations");
 
 		// Set the application icon.
 		this.primaryStage.getIcons().add(new Image("file:ressources/images/logo.png"));
@@ -152,7 +152,7 @@ public class MainApp extends Application {
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("�diter la r�servation");
+			dialogStage.setTitle("Editer la reservation");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
@@ -202,12 +202,12 @@ public class MainApp extends Application {
 			prefs.put("filePath", file.getPath());
 
 			// Update the stage title.
-			primaryStage.setTitle("R�servations - " + file.getName());
+			primaryStage.setTitle("Reservations - " + file.getName());
 		} else {
 			prefs.remove("filePath");
 
 			// Update the stage title.
-			primaryStage.setTitle("R�servation");
+			primaryStage.setTitle("Reservation");
 		}
 	}
 

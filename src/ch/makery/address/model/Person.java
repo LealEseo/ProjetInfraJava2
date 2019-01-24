@@ -178,7 +178,6 @@ public class Person {
 	public LocalDate getDateFin() {
 		return dateFin.get();
 	}
-
 	public void setDateFin(LocalDate dateFin) {
 		this.dateFin.set(dateFin);
 	}

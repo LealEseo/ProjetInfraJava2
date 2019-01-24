@@ -95,18 +95,15 @@ public class PersonEditDialogController {
         if (isInputValid()) {
         	try (
     				Connection connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.142:5432/hothell", "postgres", "postgres")) {
-    	            System.out.println("Java JDBC PostgreSQL Example");
     	            PreparedStatement stmt = connection.prepareStatement("UPDATE clients SET nom = '"+nomField.getText()+"', "
     	            		+ "prenom = '"+prenomField.getText()+"', "
     	            		+ "mail = '"+mailField.getText()+"', "
     	    	            + "telephone = '"+mobileField.getText()+"' "
     	            		+ "WHERE id = "+idClientField.getText());
-    	    		System.out.println(stmt);
     	            stmt.executeUpdate();
     	            stmt = connection.prepareStatement("UPDATE reservations SET datedebut = '"+dateDebutField.getValue()+"', "
     	            		+ "datefin = '"+dateFinField.getValue()+"' "
     	            		+ "WHERE client = "+idClientField.getText());
-    	    		System.out.println(stmt);
     	            stmt.executeUpdate();
     			}
     	        catch (SQLException e) {
@@ -165,7 +162,7 @@ public class PersonEditDialogController {
         }
 
         if (mobileField.getText() == null || mobileField.getText().length() == 0) {
-            errorMessage += "Numï¿½ro de tï¿½lephone invalide!\n"; 
+            errorMessage += "Numero de telephone invalide!\n"; 
         }
         
         if (hotelField.getText() == null || hotelField.getText().length() == 0) {
@@ -175,6 +172,12 @@ public class PersonEditDialogController {
         if (chambreField.getText() == null || chambreField.getText().length() == 0) {
             errorMessage += "Chambre invalide !\n"; 
         }
+        
+        if(dateDebutField.getValue().isAfter(dateFinField.getValue())) {
+        	errorMessage += "Date de fin antérieur à la date de debut !";
+        }
+        
+        
 
         if (errorMessage.length() == 0) {
             return true;

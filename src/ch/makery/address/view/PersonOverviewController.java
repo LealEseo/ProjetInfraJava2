@@ -9,6 +9,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.sql.Date;
 
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
@@ -40,45 +42,43 @@ public class PersonOverviewController {
     @FXML
     private Label chambreLabel;
 
-    // Reference to the main application.
     private MainApp mainApp;
+    
+    
+    Date date1 = new Date (2019,1,1);
+    Date date2 = new Date (2019,1,1);
 
     /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
+     * The constructeur
+     * 
      */
     public PersonOverviewController() {
     }
 
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+     * Initialise la classe controlleur
      */
     @FXML
     private void initialize() {
-        // Initialize the person table with the two columns.
+        // Initialise la table de reservation avec deux colonnes
         firstNameColumn.setCellValueFactory(
                 cellData -> cellData.getValue().nomProperty());
         lastNameColumn.setCellValueFactory(
                 cellData -> cellData.getValue().prenomProperty());
 
-        // Clear person details.
+        // Efface les details de la reservation.
         showPersonDetails(null);
 
-        // Listen for selection changes and show the person details when changed.
+        // Chercher les changements et monre les détails de la reservation quand changé.
         personTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     * 
-     * @param mainApp
-     */
+    
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
-        // Add observable list data to the table
+        // Ajout d'une liste de personnes
         personTable.setItems(mainApp.getPersonData());
     }
     
@@ -86,15 +86,10 @@ public class PersonOverviewController {
     
     
     
-    /**
-     * Fills all text fields to show details about the person.
-     * If the specified person is null, all text fields are cleared.
-     * 
-     * @param person the person or null
-     */
+    
     private void showPersonDetails(Person person) {
         if (person != null) {
-            // Fill the labels with info from the person object.
+            // On remplit les labels avec les détails de Person
             nomLabel.setText(person.getNom());
             prenomLabel.setText(person.getPrenom());
             mailLabel.setText(person.getMail());
@@ -108,7 +103,7 @@ public class PersonOverviewController {
 
             
         } else {
-            // Person is null, remove all the text.
+            // Pas de détails sur la reservation
             nomLabel.setText("");
             prenomLabel.setText("");
             mailLabel.setText("");
@@ -124,7 +119,7 @@ public class PersonOverviewController {
     
     
     /**
-     * Called when the user clicks on the delete button.
+     * Appelé quand l'utilisateur clique sur supprimer reservation
      */
     @FXML
     private void handleDeletePerson() {
@@ -145,12 +140,12 @@ public class PersonOverviewController {
     
     
     /**
-     * Called when the user clicks the new button. Opens a dialog to edit
-     * details for a new person.
+     * Appelé quand l'utilisateur clique sur nouvelle reservation
      */
     @FXML
     private void handleNewPerson() {
-        Person tempPerson = new Person();
+    	
+        Person tempPerson = new Person(date1, date2);
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
         if (okClicked) {
             mainApp.getPersonData().add(tempPerson);
@@ -158,8 +153,7 @@ public class PersonOverviewController {
     }
 
     /**
-     * Called when the user clicks the edit button. Opens a dialog to edit
-     * details for the selected person.
+ * Appelé quand l'utilisateur clique sur le bouton edit
      */
     @FXML
     private void handleEditPerson() {
@@ -171,7 +165,7 @@ public class PersonOverviewController {
             }
 
         } else {
-            // Nothing selected.
+            // quand rien n'est selectionné
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");

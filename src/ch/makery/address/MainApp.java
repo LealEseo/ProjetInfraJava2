@@ -33,14 +33,14 @@ public class MainApp extends Application {
 
 	
 	public MainApp() {
-		// Add some sample data
+		// Chargement des données de la BDD
 		try (
 				Connection connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.142:5432/hothell", "postgres", "postgres")) {
-	            System.out.println("Java JDBC PostgreSQL Example");
+	           // System.out.println("Java JDBC PostgreSQL Example");
 	            PreparedStatement stmt = connection.prepareStatement("SELECT cl.nom, cl.prenom, cl.mail, cl.telephone, cl.id as clientId, h.nom as nomHotel, ch.numeroChambre, r.dateDebut, r.datefin FROM Reservations as r INNER JOIN Clients  AS cl ON cl.id = r.client INNER JOIN Chambres AS ch ON r.chambre = ch.numeroChambre INNER JOIN Hotels   AS h  ON r.hotel = h.id;");
 	            ResultSet Rs = stmt.executeQuery();
 	    		while(Rs.next()){
-	    			System.out.println(Rs.getString(1)+" "+Rs.getString(2)+" "+Rs.getString(3)+" "+Rs.getString(4)+" "+Rs.getInt(5)+" "+Rs.getString(6)+" "+Rs.getString(7)+" "+Rs.getString(8)+" "+Rs.getString(9));
+	    			//System.out.println(Rs.getString(1)+" "+Rs.getString(2)+" "+Rs.getString(3)+" "+Rs.getString(4)+" "+Rs.getInt(5)+" "+Rs.getString(6)+" "+Rs.getString(7)+" "+Rs.getString(8)+" "+Rs.getString(9));
 	    			personData.add(new Person(Rs.getString(1), Rs.getString(2), Rs.getString(3), Rs.getString(4), Rs.getInt(5), Rs.getString(6), Rs.getString(7), Rs.getDate(8), Rs.getDate(9)));
 	    		}
 			}
@@ -51,14 +51,14 @@ public class MainApp extends Application {
 		
 		
 		
-		//personData.add(new Person("Ruthet", "Mueller", "test22@mail.com", "0643850024", 036, "hotel2", "chambre2"));
+		
 	}
 
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("EseOtêl");
 
-		// Set the application icon.
+		// Logo et icon de l'application.
 		this.primaryStage.getIcons().add(new Image("file:ressources/images/logo.png"));
 
 		initRootLayout();
@@ -67,20 +67,19 @@ public class MainApp extends Application {
 	}
 
 	/**
-	 * Initializes the root layout and tries to load the last opened person file.
+	 * Initialise le rootLayout 
 	 */
 	public void initRootLayout() {
 		try {
-			// Load root layout from fxml file.
+
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
-			// Show the scene containing the root layout.
+
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 
-			// Give the controller access to the main app.
 			RootLayoutController controller = loader.getController();
 			controller.setMainApp(this);
 
@@ -89,27 +88,19 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 
-		// Try to load last opened person file.
-		File file = getPersonFilePath();
-		if (file != null) {
-			loadPersonDataFromFile(file);
-		}
+		
 	}
 
 	/**
-	 * Shows the person overview inside the root layout.
+	 * Charge personOverview dans le rootLayout
 	 */
 	public void showPersonOverview() {
 		try {
-			// Load person overview.
+
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
 			AnchorPane personOverview = (AnchorPane) loader.load();
-
-			// Set person overview into the center of root layout.
 			rootLayout.setCenter(personOverview);
-
-			// Give the controller access to the main app.
 			PersonOverviewController controller = loader.getController();
 			controller.setMainApp(this);
 
@@ -118,11 +109,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	/**
-	 * Returns the main stage.
-	 * 
-	 * @return
-	 */
+	
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
@@ -136,21 +123,20 @@ public class MainApp extends Application {
 	}
 
 	/**
-	 * Opens a dialog to edit details for the specified person. If the user clicks
-	 * OK, the changes are saved into the provided person object and true is
-	 * returned.
+	 * Ouvre une fenetre d'edition d'une revervation, est aussi utilisé pour créer une nouvelle
+	 * reservation. Si l'utilisateur clique sur ok, les changements sont sauvegardé.
 	 * 
-	 * @param person the person object to be edited
-	 * @return true if the user clicked OK, false otherwise.
+	 * @param la reservation
+	 * @return true si OK, false sinon.
 	 */
 	public boolean showPersonEditDialog(Person person) {
 		try {
-			// Load the fxml file and create a new stage for the popup dialog.
+			// Charge la fenetre d'edition
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
-			// Create the dialog Stage.
+		
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Editer la reservation");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -158,12 +144,11 @@ public class MainApp extends Application {
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
-			// Set the person into the controller.
+			// Ajout de la reservation dans le controller
 			PersonEditDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setPerson(person);
 
-			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
 
 			return controller.isOkClicked();
@@ -173,106 +158,6 @@ public class MainApp extends Application {
 		}
 	}
 
-	/**
-	 * Returns the person file preference, i.e. the file that was last opened. The
-	 * preference is read from the OS specific registry. If no such preference can
-	 * be found, null is returned.
-	 * 
-	 * @return
-	 */
-	public File getPersonFilePath() {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		String filePath = prefs.get("filePath", null);
-		if (filePath != null) {
-			return new File(filePath);
-		} else {
-			return null;
-		}
-	}
 
-	/**
-	 * Sets the file path of the currently loaded file. The path is persisted in the
-	 * OS specific registry
-	 * 
-	 * @param file the file or null to remove the path
-	 */
-	public void setPersonFilePath(File file) {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		if (file != null) {
-			prefs.put("filePath", file.getPath());
-
-			// Update the stage title.
-			primaryStage.setTitle("Reservations - " + file.getName());
-		} else {
-			prefs.remove("filePath");
-
-			// Update the stage title.
-			primaryStage.setTitle("Reservation");
-		}
-	}
-
-	/**
-	 * Loads person data from the specified file. The current person data will be
-	 * replaced.
-	 * 
-	 * @param file
-	 */
-	public void loadPersonDataFromFile(File file) {
-		try {
-			JAXBContext context = JAXBContext.newInstance(PersonListWrapper.class);
-			Unmarshaller um = context.createUnmarshaller();
-
-			// Reading XML from the file and unmarshalling.
-			PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
-
-			personData.clear();
-			personData.addAll(wrapper.getPersons());
-
-			// Save the file path to the registry.
-			setPersonFilePath(file);
-
-
-		} catch (Exception e) { // catches ANY exception
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Could not load data");
-			alert.setContentText("Could not load data from file:\n" + file.getPath());
-
-			alert.showAndWait();
-		}
-	}
-
-	/**
-	 * Saves the current person data to the specified file.
-	 * 
-	 * @param file
-	 */
-	public void savePersonDataToFile(File file) {
-		try {
-			JAXBContext context = JAXBContext.newInstance(PersonListWrapper.class);
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-			// Wrapping our person data.
-			PersonListWrapper wrapper = new PersonListWrapper();
-			wrapper.setPersons(personData);
-
-			// Marshalling and saving XML to the file.
-			m.marshal(wrapper, file);
-
-			// Save the file path to the registry.
-			setPersonFilePath(file);
-		} catch (Exception e) { // catches ANY exception
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Could not save data");
-			alert.setContentText("Could not save data to file:\n" + file.getPath());
-			alert.showAndWait();
-		}
-	}
-       
-    
-    
- 
    
 }

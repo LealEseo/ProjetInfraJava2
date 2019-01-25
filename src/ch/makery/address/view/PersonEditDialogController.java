@@ -17,9 +17,10 @@ import java.time.LocalDate;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
-
 public class PersonEditDialogController {
-
+	int idhotel;
+	String idchambre;
+	
     @FXML
     private TextField nomField;
     @FXML
@@ -47,26 +48,20 @@ public class PersonEditDialogController {
     private boolean okClicked = false;
 
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+     * initialise la classe controlleur
      */
     @FXML
     private void initialize() {
     }
 
-    /**
-     * Sets the stage of this dialog.
-     * 
-     * @param dialogStage
-     */
+    
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
     /**
-     * Sets the person to be edited in the dialog.
+     * Charge la reservation à editer dans la fenetre de dialogue
      * 
-     * @param person
      */
     public void setPerson(Person person) {
         this.person = person;
@@ -81,17 +76,15 @@ public class PersonEditDialogController {
         dateFinField.setValue(person.getDateFin());
     }
 
-    /**
-     * Returns true if the user clicked OK, false otherwise.
-     * 
-     * @return
-     */
+    
     public boolean isOkClicked() {
         return okClicked;
     }
 
-    /**
-     * Called when the user clicks ok.
+    
+    
+    /*
+     * Appelé quand l'utilisateur clique sur OK
      */
     @FXML
     private void handleOk() {
@@ -108,6 +101,13 @@ public class PersonEditDialogController {
     	            		+ "datefin = '"+dateFinField.getValue()+"' "
     	            		+ "WHERE client = "+idClientField.getText());
     	            stmt.executeUpdate();
+    	            
+    	            stmt = connection.prepareStatement("UPDATE reservations SET hotel = "+idhotel+", "
+    	            		+ "chambre= "+idchambre+" "
+    	            		+ "WHERE client = "+idClientField.getText());
+    	    		System.out.println(stmt);
+    	            stmt.executeUpdate();
+    	            
     			}
     	        catch (SQLException e) {
     	        	System.out.println(e.getMessage());
@@ -128,7 +128,7 @@ public class PersonEditDialogController {
     }
 
     /**
-     * Called when the user clicks cancel.
+     * Appelé quand l'utilisateur clique sur cancel.
      */
     @FXML
     private void handleCancel() {
@@ -136,9 +136,8 @@ public class PersonEditDialogController {
     }
 
     /**
-     * Validates the user input in the text fields.
-     * 
-     * @return true if the input is valid
+     * Verifies la validité des informations entrées et renvoie un message d'erreur si invalides.
+     * Empeche le gérant de rentrer des nom d'hotels et des chambres non existantes
      */
     private boolean isInputValid() {
         String errorMessage = "";
@@ -156,7 +155,7 @@ public class PersonEditDialogController {
         if (idClientField.getText() == null || idClientField.getText().length() == 0) {
             errorMessage += "Identifiant client invalide!\n"; 
         } else {
-            // try to parse the postal code into an int. 
+             
             try {
                 Integer.parseInt(idClientField.getText());
             } catch (NumberFormatException e) {
@@ -169,12 +168,33 @@ public class PersonEditDialogController {
         }
         
         if (hotelField.getText() == null || hotelField.getText().length() == 0) {
-            errorMessage += "Hotel invalide !\n"; 
+        	errorMessage += "Hotel invalide !\n"; 
+        }
+        else {
+        	if(hotelField.getText().equals("Tothell")){
+            	idhotel = 1; 
+
+            }
+            else if (hotelField.getText().equals("Hekel")){
+            	idhotel = 2;
+            }
+            else if (hotelField.getText().equals("Otello")){
+            	idhotel = 3;
+            }    	            
+            else if (hotelField.getText().equals("Hothell")){
+            	idhotel = 4;
+            }
+            else{
+            	errorMessage += "Hotel invalide !\nVeuillez sÃ©lectionner Tothell, Hekel, Otello ou Hothell.\n"; 
+            } 
         }
         
+        
+        
         if (chambreField.getText() == null || chambreField.getText().length() == 0) {
-            errorMessage += "Chambre invalide !\n"; 
+        	errorMessage += "Chambre invalide !\n"; 
         }
+
         
         if(dateDebutField.getValue().isBefore(today) || dateFinField.getValue().isBefore(today)) {
         	errorMessage += "Dates selectionnees antérieur à la date d'aujourd'hui !\n";
@@ -189,10 +209,51 @@ public class PersonEditDialogController {
         
         
 
+
+        else{
+        	if( hotelField.getText().equals("Tothell")){
+            	if (chambreField.getText().equals("1") || chambreField.getText().equals("2")){
+            		idchambre = chambreField.getText();
+            	}
+                else{
+                	errorMessage += "Chambre invalide !\nVeuillez sÃ©lectionner les chambres 1 ou 2\n"; 
+                } 
+            }
+            else if (hotelField.getText().equals("Hekel")){
+            	if (chambreField.getText().equals("3") || chambreField.getText().equals("4") || chambreField.getText().equals("5")){
+            		idchambre = chambreField.getText();
+            	}  
+                else{
+                	errorMessage += "Chambre invalide !\nVeuillez sÃ©lectionner les chambres 3, 4 ou 5\n"; 
+                } 
+            }
+            else if (hotelField.getText().equals("Otello")){
+            	if (chambreField.getText().equals("6") || chambreField.getText().equals("7")){
+            		idchambre = chambreField.getText();
+            	}
+                else{
+                	errorMessage += "Chambre invalide !\nVeuillez sÃ©lectionner les chambres 6 ou 7\n"; 
+                } 
+            }
+            else if (hotelField.getText().equals("Hothell")){
+            	if (chambreField.getText().equals("8")){
+            		idchambre = chambreField.getText();
+            	}
+                else{
+                	errorMessage += "Chambre invalide !\nVeuillez sÃ©lectionner la chambre 8\n"; 
+                } 
+            }
+            else{
+            	errorMessage += "Chambre invalide !\n"; 
+            }
+        }
+        
+        
+        
         if (errorMessage.length() == 0) {
             return true;
         } else {
-            // Show the error message.
+            // Affiche le message d'erreur
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Champ(s) invalide(s)");

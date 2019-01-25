@@ -26,15 +26,11 @@ public class Person {
 	private final ObjectProperty<LocalDate> dateDebut;
 	private final ObjectProperty<LocalDate> dateFin;
 
-	/**
-	 * Default constructor.
-	 */
+	
 
 	/**
-	 * Constructor with some initial data.
-	 * 
-	 * @param nom
-	 * @param prenom
+	 * Constructeurs
+	 
 	 */
 	public Person(String nom, String prenom, String mail, String mobile, int idClient, String hotel, String chambre, Date dateDebut, Date dateFin) {
 		this.nom = new SimpleStringProperty(nom);
@@ -49,10 +45,10 @@ public class Person {
 
 	}
 
-	// Constructors
+	// Constructeurs
 
-	public Person() {
-		this(null, null, null, null, 00, null, null,null,null);
+	public Person(Date dateDebut, Date dateFin) {
+		this(null, null, null, null, 00, null, null, dateDebut ,dateFin);
 	}
 
 	public Person(String nom, String prenom) {

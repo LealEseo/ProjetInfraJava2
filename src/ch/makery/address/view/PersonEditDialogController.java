@@ -10,11 +10,9 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ch.makery.address.model.Person;
-import ch.makery.address.util.DateUtil;
 
 public class PersonEditDialogController {
 	int idhotel;

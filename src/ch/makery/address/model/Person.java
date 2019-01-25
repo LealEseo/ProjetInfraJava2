@@ -142,6 +142,27 @@ public class Person {
 	public StringProperty hotelProperty() {
 		return hotel;
 	}
+	
+	public int getHotelId(){
+		int idhotel = -1;
+		if(hotel.equals("Tothell")){
+        	idhotel = 1; 
+
+        }
+        else if (hotel.equals("Hekel")){
+        	idhotel = 2;
+        }
+        else if (hotel.equals("Otello")){
+        	idhotel = 3;
+        }    	            
+        else if (hotel.equals("Hothell")){
+        	idhotel = 4;
+        }
+        else{
+        	idhotel = -1; 
+        } 
+		return idhotel;
+	}
 
 	////////////////////////////////
 
@@ -157,6 +178,7 @@ public class Person {
 		return chambre;
 	}
 
+	
 	////////////////////////////////
 
 	@XmlJavaTypeAdapter(LocalDateAdapter.class)

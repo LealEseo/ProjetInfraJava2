@@ -26,11 +26,15 @@ public class Person {
 	private final ObjectProperty<LocalDate> dateDebut;
 	private final ObjectProperty<LocalDate> dateFin;
 
-	
+	/**
+	 * Default constructor.
+	 */
 
 	/**
-	 * Constructeurs
-	 
+	 * Constructor with some initial data.
+	 * 
+	 * @param nom
+	 * @param prenom
 	 */
 	public Person(String nom, String prenom, String mail, String mobile, int idClient, String hotel, String chambre, Date dateDebut, Date dateFin) {
 		this.nom = new SimpleStringProperty(nom);
@@ -45,10 +49,10 @@ public class Person {
 
 	}
 
-	// Constructeurs
+	// Constructors
 
 	public Person(Date dateDebut, Date dateFin) {
-		this(null, null, null, null, 00, null, null, dateDebut ,dateFin);
+		this(null, null, null, null, 00, null, null,dateDebut,dateFin);
 	}
 
 	public Person(String nom, String prenom) {
@@ -138,6 +142,27 @@ public class Person {
 	public StringProperty hotelProperty() {
 		return hotel;
 	}
+	
+	public int getHotelId(){
+		int idhotel = -1;
+		if(hotel.getValue().equals("Tothell")){
+        	idhotel = 1; 
+
+        }
+        else if (hotel.getValue().equals("Hekel")){
+        	idhotel = 2;
+        }
+        else if (hotel.getValue().equals("Otello")){
+        	idhotel = 3;
+        }    	            
+        else if (hotel.getValue().equals("Hothell")){
+        	idhotel = 4;
+        }
+        else{
+        	idhotel = -1; 
+        } 
+		return idhotel;
+	}
 
 	////////////////////////////////
 
@@ -153,12 +178,18 @@ public class Person {
 		return chambre;
 	}
 
+	 
 	////////////////////////////////
 
 	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getDateDebut() {
 		return dateDebut.get();
 	}
+	
+	public String getDateDebutString() {
+		return dateDebut.get().toString();
+	}
+
 
 	public void setDateDebut(LocalDate dateDebut) {
 		this.dateDebut.set(dateDebut);
@@ -174,6 +205,11 @@ public class Person {
 	public LocalDate getDateFin() {
 		return dateFin.get();
 	}
+	
+	public String getDateFinString() {
+		return dateFin.get().toString();
+	}
+	
 	public void setDateFin(LocalDate dateFin) {
 		this.dateFin.set(dateFin);
 	}

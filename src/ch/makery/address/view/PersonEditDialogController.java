@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import ch.makery.address.model.Person;
+import ch.makery.address.view.*;
 
 public class PersonEditDialogController {
 	int idhotel;
@@ -44,6 +45,8 @@ public class PersonEditDialogController {
     private Stage dialogStage;
     private Person person;
     private boolean okClicked = false;
+    
+    //PersonOverviewController poc = new PersonOverviewController();
 
     /**
      * initialise la classe controlleur
@@ -86,7 +89,8 @@ public class PersonEditDialogController {
      */
     @FXML
     private void handleOk() {
-        if (isInputValid()) {
+        if (isInputValid() && PersonOverviewController.getNouvelleResa() == false ) {
+        	System.out.println("Inside handle handleOk" + PersonOverviewController.getNouvelleResa());
         	try (
     				Connection connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.142:5432/hothell", "postgres", "postgres")) {
     	            PreparedStatement stmt = connection.prepareStatement("UPDATE clients SET nom = '"+nomField.getText()+"', "
@@ -95,11 +99,12 @@ public class PersonEditDialogController {
     	    	            + "telephone = '"+mobileField.getText()+"' "
     	            		+ "WHERE id = "+idClientField.getText());
     	            stmt.executeUpdate();
+    	            System.out.println(stmt);
     	            stmt = connection.prepareStatement("UPDATE reservations SET datedebut = '"+dateDebutField.getValue()+"', "
     	            		+ "datefin = '"+dateFinField.getValue()+"' "
     	            		+ "WHERE client = "+idClientField.getText());
     	            stmt.executeUpdate();
-    	            
+    	            System.out.println(stmt);
     	            stmt = connection.prepareStatement("UPDATE reservations SET hotel = "+idhotel+", "
     	            		+ "chambre= "+idchambre+" "
     	            		+ "WHERE client = "+idClientField.getText());
@@ -122,6 +127,20 @@ public class PersonEditDialogController {
             person.setDateFin(dateFinField.getValue());
             okClicked = true;
             dialogStage.close();
+        } else {
+        	System.out.println("Inside handle handleOk #ELSE : " + PersonOverviewController.getNouvelleResa());
+        	 person.setNom(nomField.getText());
+             person.setPrenom(prenomField.getText());
+             person.setMail(mailField.getText());
+             person.setIdClient(Integer.parseInt(idClientField.getText()));
+             person.setMobile(mobileField.getText());
+             person.setHotel(hotelField.getText());
+             person.setChambre(chambreField.getText());
+             person.setDateDebut(dateDebutField.getValue());
+             person.setDateFin(dateFinField.getValue());
+             okClicked = true;
+             dialogStage.close();
+        	
         }
     }
 

@@ -16,7 +16,7 @@ import java.sql.Date;
 
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
-import ch.makery.address.util.*;
+
 
 public class PersonOverviewController {
     @FXML
@@ -43,12 +43,14 @@ public class PersonOverviewController {
     private Label hotelLabel;
     @FXML
     private Label chambreLabel;
+    
+    private static boolean nouvelleResa = false;
 
     private MainApp mainApp;
     
     
-    Date date1 = new Date (2019,1,1);
-    Date date2 = new Date (2019,1,1);
+    Date date1 = new Date(0000,00,00);
+    Date date2 = new Date(2019,1,1);
 
     /**
      * The constructeur
@@ -82,6 +84,16 @@ public class PersonOverviewController {
 
         // Ajout d'une liste de personnes
         personTable.setItems(mainApp.getPersonData());
+    }
+    
+    
+    
+    public static boolean getNouvelleResa() {
+    	return PersonOverviewController.nouvelleResa;
+    }
+    
+    void setNouvelleResa (boolean tf) {
+    	PersonOverviewController.nouvelleResa = tf;
     }
     
     
@@ -146,6 +158,8 @@ public class PersonOverviewController {
      */
     @FXML
     private void handleNewPerson() {
+    	int idrs = -1;
+    	setNouvelleResa(true);
     	
         Person tempPerson = new Person(date1, date2);
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
@@ -159,14 +173,17 @@ public class PersonOverviewController {
         	         		+ "'"+tempPerson.getNom()+"', "
         	           		+ "'"+tempPerson.getMail()+"', "
         	                + "'"+tempPerson.getMobile()+"')");
-        	        System.out.println(stmt);
         	        stmt.executeUpdate();
-        	        stmt = connection.prepareStatement("SELECT cl.id FROM clients AS cl WHERE nom = '"+tempPerson.getNom()+"' AND prenom = "+tempPerson.getPrenom());
+        	        System.out.println(stmt);
+        	        stmt = connection.prepareStatement("SELECT cl.id FROM clients AS cl WHERE nom = '"+tempPerson.getNom()+"' AND prenom = '"+tempPerson.getPrenom()+"'");
         	        ResultSet Rs = stmt.executeQuery();
-        	        stmt = connection.prepareStatement("INSERT INTO reservation VALUES "
-        	        		+ "('"+tempPerson.getDateDebut()+"', "
-        	         		+ "'"+tempPerson.getDateFin()+"', "
-                	        + "'"+Rs.getInt(1)+"', "
+        	        while(Rs.next()) {
+        	        	idrs = Rs.getInt(1);
+        	        }
+        	        stmt = connection.prepareStatement("INSERT INTO reservations (datedebut, datefin, client, hotel, chambre) VALUES "
+        	        		+ "('"+tempPerson.getDateDebutString()+"', "
+        	         		+ "'"+tempPerson.getDateFinString()+"', "
+                	        + "'"+idrs+"', "
         	           		+ "'"+tempPerson.getHotelId()+"', "
         	                + "'"+tempPerson.getChambre()+"')");
         	        System.out.println(stmt);
@@ -176,6 +193,7 @@ public class PersonOverviewController {
 	        	System.out.println(e.getMessage());
 			    e.printStackTrace();
 			}
+            setNouvelleResa(false);
         }
     }
 

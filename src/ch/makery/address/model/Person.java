@@ -178,7 +178,7 @@ public class Person {
 		return chambre;
 	}
 
-	
+	 
 	////////////////////////////////
 
 	@XmlJavaTypeAdapter(LocalDateAdapter.class)

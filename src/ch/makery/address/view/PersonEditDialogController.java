@@ -18,7 +18,8 @@ import ch.makery.address.util.DateUtil;
 
 public class PersonEditDialogController {
 	int idhotel;
-
+	String idchambre;
+	
     @FXML
     private TextField nomField;
     @FXML
@@ -109,8 +110,8 @@ public class PersonEditDialogController {
     	    		System.out.println(stmt);
     	            stmt.executeUpdate();
     	            
-    	            stmt = connection.prepareStatement("UPDATE reservations SET hotel = "+idhotel+"', "
-    	            		+ "datefin = '"+dateFinField.getValue()+"' "
+    	            stmt = connection.prepareStatement("UPDATE reservations SET hotel = "+idhotel+", "
+    	            		+ "chambre= "+idchambre+" "
     	            		+ "WHERE client = "+idClientField.getText());
     	    		System.out.println(stmt);
     	            stmt.executeUpdate();
@@ -176,43 +177,71 @@ public class PersonEditDialogController {
         }
         
         if (hotelField.getText() == null || hotelField.getText().length() == 0) {
-            if( hotelField.getText()=="Tothell"){
+        	errorMessage += "Hotel invalide !\n"; 
+        }
+        else {
+        	if(hotelField.getText().equals("Tothell")){
             	idhotel = 1; 
+
             }
-            else if (hotelField.getText() == "Hekel"){
+            else if (hotelField.getText().equals("Hekel")){
             	idhotel = 2;
             }
-            else if (hotelField.getText() == "Otello"){
+            else if (hotelField.getText().equals("Otello")){
             	idhotel = 3;
             }    	            
-            else if (hotelField.getText() == "Hothell"){
+            else if (hotelField.getText().equals("Hothell")){
             	idhotel = 4;
             }
             else{
-            	errorMessage += "Hotel invalide !\n"; 
-            }
-            
+            	errorMessage += "Hotel invalide !\nVeuillez sélectionner Tothell, Hekel, Otello ou Hothell.\n"; 
+            } 
         }
         
+        
+        
         if (chambreField.getText() == null || chambreField.getText().length() == 0) {
-            errorMessage += "Chambre invalide !\n";
-            if( chambreField.getText()=="Tothell"){
-            	idhotel = 1; 
+        	errorMessage += "Chambre invalide !\n"; 
+        }
+        else{
+        	if( hotelField.getText().equals("Tothell")){
+            	if (chambreField.getText().equals("1") || chambreField.getText().equals("2")){
+            		idchambre = chambreField.getText();
+            	}
+                else{
+                	errorMessage += "Chambre invalide !\nVeuillez sélectionner les chambres 1 ou 2\n"; 
+                } 
             }
-            else if (chambreField.getText() == "Hekel"){
-            	idhotel = 2;
+            else if (hotelField.getText().equals("Hekel")){
+            	if (chambreField.getText().equals("3") || chambreField.getText().equals("4") || chambreField.getText().equals("5")){
+            		idchambre = chambreField.getText();
+            	}  
+                else{
+                	errorMessage += "Chambre invalide !\nVeuillez sélectionner les chambres 3, 4 ou 5\n"; 
+                } 
             }
-            else if (chambreField.getText() == "Otello"){
-            	idhotel = 3;
+            else if (hotelField.getText().equals("Otello")){
+            	if (chambreField.getText().equals("6") || chambreField.getText().equals("7")){
+            		idchambre = chambreField.getText();
+            	}
+                else{
+                	errorMessage += "Chambre invalide !\nVeuillez sélectionner les chambres 6 ou 7\n"; 
+                } 
             }
-            else if (chambreField.getText() == "Hothell"){
-            	idhotel = 4;
+            else if (hotelField.getText().equals("Hothell")){
+            	if (chambreField.getText().equals("8")){
+            		idchambre = chambreField.getText();
+            	}
+                else{
+                	errorMessage += "Chambre invalide !\nVeuillez sélectionner la chambre 8\n"; 
+                } 
             }
             else{
-            	errorMessage += "Hotel invalide !\n"; 
+            	errorMessage += "Chambre invalide !\n"; 
             }
         }
-
+        
+        
         if (errorMessage.length() == 0) {
             return true;
         } else {

@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 
 import ch.makery.address.view.*;
 import ch.makery.address.model.Person;
-import ch.makery.address.model.PersonListWrapper;
+
 import javafx.collections.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

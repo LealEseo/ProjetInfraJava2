@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.sql.Date;
@@ -130,9 +132,9 @@ public class PersonOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Pas de réservation selectionnée");
+            alert.setTitle("Pas de rï¿½servation selectionnï¿½e");
             alert.setHeaderText("Pas de selection");
-            alert.setContentText("Sélectionnez une réservation.");
+            alert.setContentText("Sï¿½lectionnez une rï¿½servation.");
             alert.showAndWait();
         }
     }
@@ -149,6 +151,31 @@ public class PersonOverviewController {
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
         if (okClicked) {
             mainApp.getPersonData().add(tempPerson);
+            try (
+        			Connection connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.142:5432/hothell", "postgres", "postgres")) {
+        	        System.out.println("Java JDBC PostgreSQL Example");
+        	        PreparedStatement stmt = connection.prepareStatement("INSERT INTO clients (prenom, nom, mail, telephone) VALUES "
+        	        		+ "('"+tempPerson.getPrenom()+"', "
+        	         		+ "'"+tempPerson.getNom()+"', "
+        	           		+ "'"+tempPerson.getMail()+"', "
+        	                + "'"+tempPerson.getMobile()+"')");
+        	        System.out.println(stmt);
+        	        stmt.executeUpdate();
+        	        stmt = connection.prepareStatement("SELECT cl.id FROM clients AS cl WHERE nom = '"+tempPerson.getNom()+"' AND prenom = "+tempPerson.getPrenom());
+        	        ResultSet Rs = stmt.executeQuery();
+        	        stmt = connection.prepareStatement("INSERT INTO reservation VALUES "
+        	        		+ "('"+tempPerson.getDateDebut()+"', "
+        	         		+ "'"+tempPerson.getDateFin()+"', "
+                	        + "'"+Rs.getInt(1)+"', "
+        	           		+ "'"+tempPerson.getHotelId()+"', "
+        	                + "'"+tempPerson.getChambre()+"')");
+        	        System.out.println(stmt);
+        	        stmt.executeUpdate();
+            }
+	        catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+			    e.printStackTrace();
+			}
         }
     }
 
@@ -169,8 +196,8 @@ public class PersonOverviewController {
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
-            alert.setHeaderText("Pas de réservation sélectionnée");
-            alert.setContentText("Sélectionnez une réservation.");
+            alert.setHeaderText("Pas de rï¿½servation sï¿½lectionnï¿½e");
+            alert.setContentText("Sï¿½lectionnez une rï¿½servation.");
             alert.showAndWait();
         }
     }

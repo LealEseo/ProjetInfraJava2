@@ -23,7 +23,7 @@ public class RootLayoutController {
     }
 
     /**
-     * Efface toute les reservations
+     * Efface toutes les reservations
      */
     @FXML
     private void handleNew() {

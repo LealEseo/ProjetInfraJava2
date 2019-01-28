@@ -36,11 +36,12 @@ public class MainApp extends Application {
 		// Chargement des données de la BDD
 		try (
 				Connection connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.142:5432/hothell", "postgres", "postgres")) {
-	           // System.out.println("Java JDBC PostgreSQL Example");
-	            PreparedStatement stmt = connection.prepareStatement("SELECT cl.nom, cl.prenom, cl.mail, cl.telephone, cl.id as clientId, h.nom as nomHotel, ch.numeroChambre, r.dateDebut, r.datefin FROM Reservations as r INNER JOIN Clients  AS cl ON cl.id = r.client INNER JOIN Chambres AS ch ON r.chambre = ch.numeroChambre INNER JOIN Hotels   AS h  ON r.hotel = h.id;");
+	            System.out.println("Java JDBC PostgreSQL Example");
+	            PreparedStatement stmt = connection.prepareStatement("SELECT cl.nom, cl.prenom, cl.mail, cl.telephone, cl.id as clientId, h.nom as nomHotel, ch.numeroChambre, r.dateDebut, r.datefin FROM Reservations as r INNER JOIN Clients AS cl ON cl.id = r.client INNER JOIN Chambres AS ch ON r.chambre = ch.numeroChambre INNER JOIN Hotels AS h ON r.hotel = h.id;"); 
+	            System.out.println(stmt);
 	            ResultSet Rs = stmt.executeQuery();
 	    		while(Rs.next()){
-	    			//System.out.println(Rs.getString(1)+" "+Rs.getString(2)+" "+Rs.getString(3)+" "+Rs.getString(4)+" "+Rs.getInt(5)+" "+Rs.getString(6)+" "+Rs.getString(7)+" "+Rs.getString(8)+" "+Rs.getString(9));
+	    			System.out.println(Rs.getString(1)+" "+Rs.getString(2)+" "+Rs.getString(3)+" "+Rs.getString(4)+" "+Rs.getInt(5)+" "+Rs.getString(6)+" "+Rs.getString(7)+" "+Rs.getString(8)+" "+Rs.getString(9));
 	    			personData.add(new Person(Rs.getString(1), Rs.getString(2), Rs.getString(3), Rs.getString(4), Rs.getInt(5), Rs.getString(6), Rs.getString(7), Rs.getDate(8), Rs.getDate(9)));
 	    		}
 			}

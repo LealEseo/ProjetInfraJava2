@@ -139,14 +139,34 @@ public class PersonOverviewController {
     private void handleDeletePerson() {
         int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
+            Person tempPerson = personTable.getItems().get(selectedIndex);
+            try (
+
+        			Connection connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.142:5432/hothell", "postgres", "postgres")) {
+        	        System.out.println(tempPerson.getIdClient());
+            		PreparedStatement stmt = connection.prepareStatement("DELETE FROM reservations WHERE "
+        	        		+ "client = "+tempPerson.getIdClient()+";");
+        	        stmt.executeUpdate();
+        	        System.out.println(stmt);
+        	        stmt = connection.prepareStatement("DELETE FROM clients WHERE "
+        	        		+ "id = "+tempPerson.getIdClient()+";");
+        	        stmt.executeUpdate();
+        	        System.out.println(stmt);
+
+            }
+	        catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+			    e.printStackTrace();
+			}
             personTable.getItems().remove(selectedIndex);
+
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Pas de r�servation selectionn�e");
+            alert.setTitle("Pas de reseservation selectionnee");
             alert.setHeaderText("Pas de selection");
-            alert.setContentText("S�lectionnez une r�servation.");
+            alert.setContentText("Selectionnez une reservation.");
             alert.showAndWait();
         }
     }
